@@ -6,6 +6,6 @@ try:
 except:
 	import database
 
-conn = tornado.database.Connection("127.0.0.1", "test", "root", "root")
-conn1 = tornado.database.Connection("127.0.0.1", "test", "root", "root")
+conn = database.Connection("127.0.0.1", "test", "root", "root")
+conn1 = database.Connection("127.0.0.1", "test", "root", "root")
 ring = [conn1, conn1, conn1]
