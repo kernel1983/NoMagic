@@ -30,10 +30,11 @@ def _get_entities_by_ids(entity_ids):
     entities = []
 
     for h in range(_NUMBER):
-        ids = [i for i in entity_ids if h == _number(i)]
+        ids = [str(i) for i in entity_ids if h == _number(i)]
 
         if len(ids) > 1:
-            entities.extend([(i["id"], _unpack(i["body"])) for i in ring[h].query("SELECT * FROM entities WHERE id IN %s" % str(tuple(ids)))])
+            entities.extend([(i["id"], _unpack(i["body"])) \
+                for i in ring[h].query("SELECT * FROM entities WHERE id IN %s" % str(tuple(ids)))])
         elif len(ids) == 1:
             entity = _get_entity_by_id(ids[0])
             entities.extend([(ids[0], entity)] if entity else [])
