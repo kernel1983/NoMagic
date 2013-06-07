@@ -8,9 +8,7 @@ NoMagic is a MySQL based big data framework which enable you to create sharding 
 
 * sharding
 
-This framework stands on the shoulders of giants,
-
-we borrowed the idea from [Bret Taylor](http://backchannel.org/about)'s article [http://backchannel.org/blog/friendfeed-schemaless-mysql](http://backchannel.org/blog/friendfeed-schemaless-mysql)
+This framework stands on the shoulders of giants, we borrowed the idea from [Bret Taylor](http://backchannel.org/about)'s article [http://backchannel.org/blog/friendfeed-schemaless-mysql](http://backchannel.org/blog/friendfeed-schemaless-mysql)
 
 We use function to implement a lot of helper function, I believe each action in database should be given a friendly function name, and the function should always return the same result of data if you give right parameters. If you don't like ORM, we may be looking for this project.
 
@@ -24,6 +22,6 @@ Learning
 1. Understand what is index and what is payload in database world.
 2. The concept change of key-value database programming.
 3. NoMagic database structure design.
-4. Read the core function library.
+4. [Read the core function library](docs/__init__.py.md).
 5. Play around with NoMagic.
 
