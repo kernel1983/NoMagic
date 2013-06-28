@@ -15,10 +15,7 @@ import string
 
 import __init__ as nomagic
 
-from setting import settings
-
 from setting import conn
-from setting import ring
 
 
 def email_invite(email):
@@ -84,7 +81,7 @@ def new_status(user_id, data):
     assert data.get("content")
 
     new_id = nomagic._new_key()
-    assert ring[nomagic._number(new_id)].execute_rowcount("INSERT INTO entities (id, body) VALUES(%s, %s)", new_id, nomagic._pack(data))
+    assert nomagic._node(new_id).execute_rowcount("INSERT INTO entities (id, body) VALUES(%s, %s)", new_id, nomagic._pack(data))
 
     user = nomagic._get_entity_by_id(user_id)
     activity = user.get("activity", [])
@@ -140,7 +137,7 @@ def new_comment(user_id, entity_id, data):
     assert data.get("content")
 
     new_comment_id = nomagic._new_key()
-    assert ring[nomagic._number(new_comment_id)].execute_rowcount("INSERT INTO entities (id, body) VALUES(%s, %s)", new_comment_id, nomagic._pack(data))
+    assert nomagic._node(new_comment_id).execute_rowcount("INSERT INTO entities (id, body) VALUES(%s, %s)", new_comment_id, nomagic._pack(data))
 
     entity = nomagic._get_entity_by_id(entity_id)
     comment_ids = entity.get("comment_ids", [])
@@ -184,5 +181,3 @@ def unlike(user_id, entity_id):
         entity["likes"] = likes
         nomagic._update_entity_by_id(entity_id, entity)
     return likes
-
-

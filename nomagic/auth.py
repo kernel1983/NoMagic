@@ -17,11 +17,12 @@ import string
 import __init__ as nomagic
 
 from setting import conn
-from setting import ring
+
 
 def create_user(user):
     email = user["email"]
-    assert not conn.get("SELECT * FROM index_login WHERE login = %s", email)
+    login = conn.get("SELECT * FROM index_login WHERE login = %s", email)
+    assert not login
 
     user["type"] = "user"
     user["name"] = user.get("name", "")
@@ -37,11 +38,13 @@ def create_user(user):
     user["datetime"] = datetime.datetime.now().isoformat()
 
     new_id = nomagic._new_key()
-    assert ring[nomagic._number(new_id)].execute_rowcount("INSERT INTO entities (id, body) VALUES(%s, %s)", new_id, nomagic._pack(user))
+    rowcount = nomagic._node(new_id).execute_rowcount("INSERT INTO entities (id, body) VALUES(%s, %s)", new_id, nomagic._pack(user))
+    assert rowcount
 
     #update indexes: email
     assert "@" in email
-    assert conn.execute_rowcount("INSERT INTO index_login (login, entity_id) VALUES(%s, %s)", email, new_id)
+    rowcount = conn.execute_rowcount("INSERT INTO index_login (login, entity_id) VALUES(%s, %s)", email, new_id)
+    assert rowcount
 
     return (new_id, user)
 
@@ -69,7 +72,7 @@ def update_user(user_id, data):
         user.update(data)
         user_json2 = nomagic._pack(user)
         if user_json1 != user_json2:
-            assert ring[nomagic._number(user_id)].execute_rowcount("UPDATE entities SET body = %s WHERE id = %s", nomagic._pack(user), nomagic._key(user_id))
+            assert nomagic._node(user_id).execute_rowcount("UPDATE entities SET body = %s WHERE id = %s", nomagic._pack(user), nomagic._key(user_id))
     return result
 
 def check_user(login, password):
@@ -96,6 +99,8 @@ def email_invite(email):
     # valid email, existing in system?
     # insert into index_invite table
     token = uuid.uuid4().hex
-    assert conn.execute_rowcount("INSERT INTO index_invite (email, token) VALUES(%s, %s)", email, token)
+    rowcount = conn.execute_rowcount("INSERT INTO index_invite (email, token) VALUES(%s, %s)", email, token)
+    assert rowcount
     # resend? signup? invite?
     return token
+
