@@ -13,7 +13,7 @@ _RING = hash_ring.HashRing(range(len(ring)))
 
 
 def _pack(data): return json.dumps(data, ensure_ascii=False)
-def _unpack(data): return json.loads(data)
+def _unpack(data): return json.loads(data or "{}")
 def _key(data): return data
 
 def _new_key():

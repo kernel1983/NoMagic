@@ -21,8 +21,8 @@ NoMagic 框架不喜欢把任何东西藏在黑盒里面. 我们希望在使用�
 
 学习
 --------
-1. 理解数据库的索引和存储.
-2. 假定你有关系数据库的编程经验: 现在需要转变观念, 我们要适应 key-value 数据库的编程.
+1. 理解数据库的[索引和存储](http://kjam.org/cn/index-and-payload.html).
+2. 假定你有关系数据库的编程经验: 现在需要转变观念, 我们要适应 [Key-Value 数据库的编程](http://kjam.org/cn/index-and-payload.html).
 3. 搞清楚 NoMagic 数据库结构是怎么设计的.
 4. [读一读我们的核心代码库](docs/__init__.py.md), 我向你保证不是很长.
 5. 自己动手试一试 NoMagic.
