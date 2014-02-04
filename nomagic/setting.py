@@ -4,7 +4,7 @@
 try:
     from tornado import database
 except:
-    import database
+    import torndb as database
 
 conn = database.Connection("127.0.0.1", "test", "root", "root")
 conn1 = database.Connection("127.0.0.1", "test", "root", "root")
